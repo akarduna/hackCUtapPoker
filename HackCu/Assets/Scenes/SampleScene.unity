@@ -214,7 +214,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 185554109}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.85, z: 0}
+  m_LocalPosition: {x: 0, y: 0.85, z: -0.25}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
@@ -285,6 +285,8 @@ MonoBehaviour:
   - {fileID: 8017095965791180941, guid: c789c03cd4abcb14a86c584c0f14acf3, type: 3}
   - {fileID: 973126801939583721, guid: 091c8ef8838faba4b9cdbfacfd334e3e, type: 3}
   - {fileID: 1969986926114890988, guid: adcad4eb248ada04691b90a43772d2dc, type: 3}
+  playerCards: []
+  playerVal: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,13 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class spawner : MonoBehaviour
 {
     int[] deck = new int[52];
     public GameObject[] cards = new GameObject[52];
     // Start is called before the first frame update
-    GameObject card;
+    public List<GameObject> playerCards = new List<GameObject>();
+    public int playerVal = 0;
+    float offset = 0.075F;
+    int flippedCard = 0;
     void Start()
     {
         for(int i = 0; i < deck.Length; i++)
@@ -15,15 +19,21 @@ public class spawner : MonoBehaviour
             deck[i] = i;
         }
         reshuffle(deck);
-        card = Instantiate(cards[deck[0]], transform.position,  Quaternion.Euler(180,0,0));
+        for(int i = 0; i < 2; i++)
+        {
+            playerVal += deck[i]%13;
+            playerCards.Add(Instantiate(cards[deck[i]], transform.position + new Vector3(offset*playerCards.Count, 0, 0),  Quaternion.Euler(180,0,0)));
+        }
     }
+       
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown("space"))
+        if(Input.GetKeyDown("space") && flippedCard<playerCards.Count)
         {
-            card.transform.Rotate(180,0,0);
+            playerCards[flippedCard].transform.Rotate(180,0,0);
+            flippedCard++;
         }
     }
     void reshuffle(int[] texts)
