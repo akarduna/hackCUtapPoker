@@ -7,6 +7,7 @@ public class spawner : MonoBehaviour
     int[] deck = new int[52];
     public GameObject[] cards = new GameObject[52];
     // Start is called before the first frame update
+    GameObject card;
     void Start()
     {
         for(int i = 0; i < deck.Length; i++)
@@ -14,13 +15,16 @@ public class spawner : MonoBehaviour
             deck[i] = i;
         }
         reshuffle(deck);
-        GameObject card = Instantiate(cards[deck[0]], transform.position, Quaternion.identity);
+        card = Instantiate(cards[deck[0]], transform.position,  Quaternion.Euler(180,0,0));
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKeyDown("space"))
+        {
+            card.transform.Rotate(180,0,0);
+        }
     }
     void reshuffle(int[] texts)
     {
