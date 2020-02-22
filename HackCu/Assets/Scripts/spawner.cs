@@ -8,32 +8,48 @@ public class spawner : MonoBehaviour
     int[] deck = new int[52];
     public GameObject[] cards = new GameObject[52];
     // Start is called before the first frame update
-    public List<GameObject> playerCards = new List<GameObject>();
-    public int playerVal = 0;
-    float offset = 0.075F;
-    int flippedCard = 0;
+    public List<int> playerCards = new List<int>();
+    float offset = 0.15F;
+    bool flippedCard = false;
+    int cardCount = 0;
+    public List<int> dealerCards = new List<int>();
+    GameObject needToFlip;
     void Start()
     {
         for(int i = 0; i < deck.Length; i++)
         {
-            deck[i] = i;
+            deck[i] = i+1;
         }
         reshuffle(deck);
-        for(int i = 0; i < 2; i++)
-        {
-            playerVal += deck[i]%13;
-            playerCards.Add(Instantiate(cards[deck[i]], transform.position + new Vector3(offset*playerCards.Count, 0, 0),  Quaternion.Euler(180,0,0)));
-        }
+        playerCards.Add(deck[0]);
+        GameObject obj = Instantiate(cards[deck[0]-1], transform.position + new Vector3(offset*(playerCards.Count-1), 0, 0),  Quaternion.Euler(0,0,0));
+        obj.transform.localScale += new Vector3(0.01F, 0.01F, 0.01F);
+        dealerCards.Add(deck[1]);
+        needToFlip = Instantiate(cards[deck[1]-1], transform.position + new Vector3(0, 0, .4F),  Quaternion.Euler(180,0,0));
+        needToFlip.transform.localScale += new Vector3(0.01F, 0.01F, 0.01F);
+        playerCards.Add(deck[2]);
+        obj = Instantiate(cards[deck[2]-1], transform.position + new Vector3(offset*(playerCards.Count-1), 0, 0),  Quaternion.Euler(0,0,0));
+        obj.transform.localScale += new Vector3(0.01F, 0.01F, 0.01F);
+        dealerCards.Add(deck[3]);
+        obj = Instantiate(cards[deck[3]-1], transform.position + new Vector3(.15F, 0, .4F),  Quaternion.Euler(0,0,0));
+        obj.transform.localScale += new Vector3(0.01F, 0.01F, 0.01F);
+        cardCount = 4;
     }
-       
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown("space") && flippedCard<playerCards.Count)
+        if(Input.GetKeyDown("space") && !flippedCard)
         {
-            playerCards[flippedCard].transform.Rotate(180,0,0);
-            flippedCard++;
+            needToFlip.transform.Rotate(180,0,0);
+            flippedCard = true;
+        }
+        if(Input.GetKeyDown(KeyCode.H))
+        {
+            playerCards.Add(deck[cardCount]);
+            GameObject obj = Instantiate(cards[deck[cardCount]-1], transform.position + new Vector3(offset*(playerCards.Count-1), 0, 0),  Quaternion.Euler(0,0,0));
+            obj.transform.localScale += new Vector3(0.01F, 0.01F, 0.01F);
+            cardCount++;
         }
     }
     void reshuffle(int[] texts)
