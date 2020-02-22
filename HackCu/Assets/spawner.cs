@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class spawner : MonoBehaviour
 {
-    string[] deck = new string[52];
+    int[] deck = new int[52];
+    public GameObject[] cards = new GameObject[52];
     // Start is called before the first frame update
     void Start()
     {
         for(int i = 0; i < deck.Length; i++)
         {
-            deck[i] = i.ToString();
+            deck[i] = i;
         }
         reshuffle(deck);
-        Debug.Log(deck[0]);
+        GameObject card = Instantiate(cards[deck[0]], transform.position, Quaternion.identity);
     }
 
     // Update is called once per frame
@@ -21,12 +22,12 @@ public class spawner : MonoBehaviour
     {
         
     }
-    void reshuffle(string[] texts)
+    void reshuffle(int[] texts)
     {
         // Knuth shuffle algorithm :: courtesy of Wikipedia :)
         for (int t = 0; t < texts.Length; t++ )
         {
-            string tmp = texts[t];
+            int tmp = texts[t];
             int r = Random.Range(t, texts.Length);
             texts[t] = texts[r];
             texts[r] = tmp;
